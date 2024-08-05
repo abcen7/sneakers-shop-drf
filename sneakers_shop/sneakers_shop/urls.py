@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from items.views import ItemsAPIView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/itemslist', ItemsAPIView.as_view())
 ]
