@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  sneakers_api_database:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_DB: "sneakers_api_database"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "root"
+    ports:
+      - "5432:5432"
+    volumes:
+      - sneakers_api_database_volume:/var/lib/postgresql/data/
+
+  sneakers_api:
+    build: .
+    command: "python sneakers_shop/manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - sneakers_api_database
+    ports:
+      - "8000:8000"
+
+volumes:
+  sneakers_api_database_volume:
+
